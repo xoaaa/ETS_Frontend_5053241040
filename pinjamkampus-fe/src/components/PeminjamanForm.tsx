@@ -33,6 +33,17 @@ function PeminjamanForm({sumberDaya, onBerhasilSimpan}: PeminjamanFormProps) {
     setError("");
 
     const peminjamBersih = peminjam.trim();
+
+    if (!peminjamBersih) {
+    setError("Nama peminjam wajib diisi.");
+    return;
+    }
+
+    if (peminjamBersih.length > 50) {
+    setError("Nama peminjam maksimal 50 karakter.");
+    return;
+    }
+
     const mulaiAngka = Number(slotMulai);
     const selesaiAngka = Number(slotSelesai);
     const jumlahAngka = Number(jumlah);
@@ -109,7 +120,7 @@ function PeminjamanForm({sumberDaya, onBerhasilSimpan}: PeminjamanFormProps) {
     if (err instanceof Error) {
         setError(err.message);
     } else {
-        setError("Terjadi kesalahan saat menyimpan peminjaman.");
+        setError("Gagal memyimpan peminjaman.");
     }
     } finally {
       setMenyimpan(false);
@@ -140,6 +151,7 @@ function PeminjamanForm({sumberDaya, onBerhasilSimpan}: PeminjamanFormProps) {
             id="peminjam"
             type="text"
             value={peminjam}
+            maxLength={50}
             onChange={(event) => setPeminjam(event.target.value)}/>
         </div>
 

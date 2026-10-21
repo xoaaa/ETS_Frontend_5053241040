@@ -1,9 +1,6 @@
 const API_URL = "http://localhost:8080";
 
-async function bacaPesanError(
-  response: Response,
-  pesanDefault: string,
-): Promise<string> {
+async function bacaPesanError(response: Response, pesanDefault: string): Promise<string> {
   try {
     const data: unknown = await response.json();
 
@@ -88,8 +85,9 @@ export async function tambahPeminjaman(data: PeminjamanInput): Promise<Peminjama
   });
   if (!response.ok) {
   throw new Error(
-    await bacaPesanError(response, "Gagal menyimpan peminjaman."));
-}
+    await bacaPesanError(
+      response, "Gagal menyimpan peminjaman."),
+    );}
   return (await response.json()) as Peminjaman;
 }
 
@@ -124,6 +122,3 @@ export async function getDetailPeminjaman(id: number): Promise<Peminjaman> {
   }
   return (await response.json()) as Peminjaman;
 }
-
-
-
